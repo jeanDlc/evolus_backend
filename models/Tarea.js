@@ -4,7 +4,8 @@ const Proyecto = require('./Proyecto');
 const Tarea=db.define('Tarea',{
     id:{
         type:DataTypes.UUID,
-        primaryKey:true
+        primaryKey:true,
+        defaultValue:DataTypes.UUIDV1
     },
     nombre:{
         type:DataTypes.STRING(40),

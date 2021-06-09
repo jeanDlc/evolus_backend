@@ -5,7 +5,8 @@ const Proyecto = require('./Proyecto');
 const Empleado=db.define('Empleado',{
     id:{
         type:DataTypes.UUID,
-        primaryKey:true
+        primaryKey:true,
+        defaultValue:DataTypes.UUIDV1
     },
     nombre:{
         type:DataTypes.STRING(100),
@@ -16,22 +17,26 @@ const Empleado=db.define('Empleado',{
         allowNull:false,
     },
     num_telefonico:{
-        type:DataTypes.STRING(9),
+        type:DataTypes.STRING(11),
         allowNull:false,
+        unique:true
     },
     email:{
         type:DataTypes.STRING(40),
         allowNull:false,
         validate:{isEmail:{
             msg:'Email no válido'
-        }}
+        }},
+        unique:true
     },
     dni:{
         type:DataTypes.STRING(8),
-        allowNull:false
+        allowNull:false,
+        unique:true
     },
     ruc:{
-        type:DataTypes.STRING(13)
+        type:DataTypes.STRING(13),
+        unique:true
     },
     direccion:{
         type:DataTypes.STRING(100)
@@ -52,5 +57,5 @@ const Empleado=db.define('Empleado',{
     }
 })
 Empleado.belongsTo(Rol);
-//Empleado.belongsToMany(Proyecto, { through: 'Proyecto_Empleado' });
+
 module.exports=Empleado;

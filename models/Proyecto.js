@@ -5,7 +5,8 @@ const Empleado = require('./Empleado');
 const Proyecto=db.define('Proyecto',{
     id:{
         type:DataTypes.UUID,
-        primaryKey:true
+        primaryKey:true,
+        defaultValue:DataTypes.UUIDV1
     },
     nombre:{
         type:DataTypes.STRING(40),
@@ -41,5 +42,5 @@ const Proyecto=db.define('Proyecto',{
     }
 })
 Proyecto.belongsTo(Cliente);
-//Proyecto.belongsToMany(Empleado, { through: 'Proyecto_Empleado' });
+
 module.exports=Proyecto;
