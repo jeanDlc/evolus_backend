@@ -1,7 +1,7 @@
 const { DataTypes} = require('sequelize');
 const db=require('../config/db');
 const Cliente = require('./Cliente');
-const Empleado = require('./Empleado');
+
 const Proyecto=db.define('Proyecto',{
     id:{
         type:DataTypes.UUID,
