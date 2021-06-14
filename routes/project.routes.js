@@ -3,7 +3,10 @@ const router=express.Router();
 const projectController=require('../controllers/projectController');
 const {body} = require('express-validator');
 const {handlerValidationErrors} = require('../middlewares/handlerValidationErrors');
+
 router.get('/', projectController.getProjects);
+
+router.get('/:id', projectController.getProjectById);
 
 router.post('/', 
     body('ClienteId').trim().notEmpty().escape().withMessage('Cliente no válido') ,

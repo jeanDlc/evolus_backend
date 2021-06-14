@@ -4,6 +4,9 @@ const clientController=require('../controllers/clientController');
 const { body } = require('express-validator');
 
 router.get('/', clientController.getClients );
+
+router.get('/:id', clientController.getClientById);
+
 router.post('/',
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('apellidos').trim().notEmpty().escape().withMessage('Appellidos no válidos'),

@@ -6,6 +6,8 @@ const router=express.Router();
 
 router.get('/', employeeController.getEmployees);
 
+router.get('/:id', employeeController.getEmployeeById);
+
 router.post('/', 
 
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),

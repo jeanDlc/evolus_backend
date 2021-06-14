@@ -15,6 +15,19 @@ exports.getClients=async(req,res)=>{
     res.status(200).json(clientes);
     
 }
+
+exports.getClientById=async(req,res)=>{
+    const {id}=req.params;
+    try {
+        const client=await Cliente.findByPk(id);
+        if(!client) return res.status(400).json({error:'No se pudo encontrar al cliente'});
+        res.status(200).json(client);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:'Ocurrió un error'});
+    }
+}
+
 exports.newClient=async(req,res)=>{
     //TODO admin y asesor de serv tienen acceso
     try {

@@ -25,4 +25,5 @@ const Tarea=db.define('Tarea',{
     },
 });
 Tarea.belongsTo(Proyecto);
+Proyecto.hasMany(Tarea);
 module.exports=Tarea;
