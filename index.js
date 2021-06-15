@@ -3,6 +3,7 @@ const app= express();
 const clientRoutes=require('./routes/client.routes');
 const projectRoutes=require('./routes/project.routes');
 const employeeRoutes=require('./routes/employee.routes');
+const taskRoutes=require('./routes/task.routes');
 const {initializeRolTables}=require('./config/initializeSomeTables');
 const db=require('./config/db');
 const cors=require('cors');
@@ -34,3 +35,4 @@ app.listen(app.get('port'), ()=>{
 app.use('/clientes', clientRoutes);
 app.use('/proyectos', projectRoutes);
 app.use('/empleados', employeeRoutes);
+app.use('/tareas', taskRoutes);

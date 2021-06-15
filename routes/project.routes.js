@@ -24,4 +24,16 @@ router.post('/',
     handlerValidationErrors,
     projectController.newProject);
 
+router.delete('/:id', projectController.deleteProject);
+
+router.get('/:id/tareas', projectController.getProjectTasks);
+
+router.post('/:id/tareas', 
+    body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
+    body('descripcion').trim().notEmpty().escape().isString().withMessage('Descripción no válida'),
+    body('fecha_fin').isDate().withMessage('Fecha final no válida'),
+    handlerValidationErrors,
+    projectController.newProjectTask
+);
+
 module.exports=router;
