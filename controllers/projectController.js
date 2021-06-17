@@ -3,6 +3,8 @@ const Tarea=require('../models/Tarea');
 const Proyecto_Empleado=require('../models/Proyecto_Empleado');
 const Empleado=require('../models/Empleado');
 const db=require('../config/db');
+const Rol = require('../models/Rol');
+const Cliente = require('../models/Cliente');
 exports.getProjects=async(req,res)=>{
     const projects=await Proyecto.findAll();
     res.status(200).json(projects);
@@ -13,9 +15,15 @@ exports.getProjectById=async(req,res)=>{
         const {id}=req.params;
         const project=await Proyecto.findByPk(id, {include:[
             {model:Empleado,
-                attributes:['id', 'nombre', 'apellidos']
+                attributes:['id', 'nombre', 'apellidos'],
+                include:[{
+                    model:Rol
+                }]
             },
-            {model:Tarea}
+            {model:Tarea},
+            {model:Cliente,
+                attributes:['id', 'nombre', 'apellidos', 'num_telefonico']
+            }
         ]});
         if(!project) return res.status(400).json({error:'No se encontró el proyecto que buscas'});
         res.status(200).json(project);
