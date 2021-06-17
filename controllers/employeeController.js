@@ -9,7 +9,7 @@ exports.getEmployees=async(req,res)=>{
         res.status(200).json(employees);
     } catch (error) {
         console.log(error);
-        res.status(500).json(error.message);
+        res.status(500).json({error:'Ocurrió un error'});
     }
 }
 exports.getEmployeeById=async(req,res)=>{

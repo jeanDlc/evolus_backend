@@ -22,6 +22,12 @@ router.post('/',
     body('pass').trim().notEmpty().escape().isLength({
         min:6
     }).withMessage('La contraseña debe tener mínimo 6 caracteres'),
+    body('confirmar').trim().notEmpty().escape().custom((value, {req})=>{
+        if (value !== req.body.pass) {
+            throw new Error('La contraseña y el password no coinciden');
+        }
+        return true;
+    }),
     handlerValidationErrors,
     employeeController.newEmployee
 );
@@ -38,6 +44,12 @@ router.put('/:id',
     body('pass').trim().notEmpty().escape().isLength({
         min:6
     }).withMessage('La contraseña debe tener mínimo 6 caracteres'),
+    body('confirmar').trim().notEmpty().escape().custom((value, {req})=>{
+        if (value !== req.body.pass) {
+            throw new Error('La contraseña y el password no coinciden');
+        }
+        return true;
+    }),
     handlerValidationErrors,
     employeeController.updateEmployee
 )
