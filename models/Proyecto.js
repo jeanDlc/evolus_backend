@@ -33,7 +33,7 @@ const Proyecto=db.define('Proyecto',{
         allowNull:false
     },
     monto:{
-        type:DataTypes.STRING(10),
+        type:DataTypes.DOUBLE(),
         allowNull:false
     },
     pagado:{

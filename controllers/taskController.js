@@ -20,22 +20,16 @@ exports.deleteTask=async(req,res)=>{
 }
 exports.updateTask=async(req,res)=>{
     try {
-        const {ProyectoId, nombre, descripcion, fecha_fin}=req.body;
+        const {ProyectoId, nombre, descripcion, estado}=req.body;
         const project=await Proyecto.findByPk(ProyectoId);
         if(!project){
             return res.status(400).json({error:'No se puede actualizar una tarea de un proyecto que no existe'});
-        }
-        let newFinalDate;
-        if(fecha_fin>= project.fecha_inicio && fecha_fin<=project.fecha_fin){
-            newFinalDate=fecha_fin;
-        }else{
-            newFinalDate=project.fecha_fin;
         }
         
         const [numUpdatedTask] =await Tarea.update({
             nombre,
             descripcion,
-            fecha_fin:newFinalDate
+            estado
         }, {where:{ id: req.params.id}});
 
         if(numUpdatedTask===0) return res.status(400).json({error:'No se pudo actualizar la tarea'});

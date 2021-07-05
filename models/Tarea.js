@@ -18,11 +18,7 @@ const Tarea=db.define('Tarea',{
     estado:{
         type:DataTypes.BOOLEAN,
         defaultValue:false
-    }, 
-    fecha_fin:{
-        type:DataTypes.DATE,
-        allowNull:false
-    },
+    }
 });
 Tarea.belongsTo(Proyecto);
 Proyecto.hasMany(Tarea);

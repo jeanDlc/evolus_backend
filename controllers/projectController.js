@@ -52,6 +52,42 @@ exports.newProject=async(req,res)=>{
         res.status(500).json({error:'No se pudo crear el proyecto'});
     }
 }
+exports.updateProject=async(req,res)=>{
+    const t=await db.transaction();
+    try {
+        //buscando el proyecto que se va a actualizar
+        const project=await Proyecto.findByPk(req.params.id);
+        if(!project) return res.status(404).json({error:'El proyecto no fue encontrado'});
+        //actualizando campos del proyecto
+        const {nombre,ClienteId,fecha_inicio,fecha_fin,descripcion,num_matricula,monto}=req.body;
+        project.nombre=nombre;
+        project.ClienteId=ClienteId;
+        project.fecha_inicio=fecha_inicio;
+        project.fecha_fin=fecha_fin;
+        project.descripcion=descripcion;
+        project.num_matricula=num_matricula;
+        project.monto=monto;
+        project.save({transaction:t}); //guardando cambios
+
+        //actualizanto tabla Projecto_Empleado
+        const arrayEmployeesId=req.body.empleados;
+        await Proyecto_Empleado.destroy({where:{ProyectoId:project.id}, transaction:t});
+        await Proyecto_Empleado.bulkCreate(arrayEmployeesId.map(employeeId=>{
+            return {
+                ProyectoId:project.id,
+                EmpleadoId:employeeId
+            }   
+        }), {transaction:t});
+
+        //ejecutar transacción
+        await t.commit();
+        res.status(200).json({msg:'Proyecto actualizado correctamente'});
+    } catch (error) {
+        await t.rollback();
+        console.log(error.message)
+        res.status(500).json({error:'No se pudo actualizar'})
+    }
+}
 exports.deleteProject=async(req,res)=>{
     
     try {
@@ -62,7 +98,7 @@ exports.deleteProject=async(req,res)=>{
         res.status(200).json({msg:'Proyecto eliminado con éxito'})
     } catch (error) {
         console.log(error);
-        res.status(500).json({msg:'Ocurrió un error'})
+        res.status(500).json({error:'Ocurrió un error'})
     }
 }
 exports.getProjectTasks=async(req,res)=>{
@@ -79,20 +115,14 @@ exports.getProjectTasks=async(req,res)=>{
 }
 exports.newProjectTask=async(req,res)=>{
     try {
-        const {nombre,descripcion, fecha_fin}=req.body;
+        const {nombre,descripcion}=req.body;
         const ProyectoId=req.params.id;
         const project=await Proyecto.findByPk(ProyectoId);
 
         if(!project){
             return res.status(400).json({error:'No se puede crear una tarea para un proyecto que no existe'});
         }
-
-        // inicio proyecto < fecha final tarea < fin de proyecto
-        if(fecha_fin>=project.fecha_inicio && fecha_fin<=project.fecha_fin ){
-            await Tarea.create({ProyectoId,nombre,descripcion, fecha_fin});
-        }else{
-            await Tarea.create({ProyectoId,nombre,descripcion, fecha_fin: project.fecha_fin});
-        }
+        await Tarea.create({ProyectoId,nombre,descripcion});
         
         res.status(200).json({msg:'Tarea creada correctamente'});
     } catch (error) {
