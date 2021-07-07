@@ -2,12 +2,21 @@ const express=require('express');
 const router=express.Router();
 const clientController=require('../controllers/clientController');
 const { body } = require('express-validator');
+const auth=require('../middlewares/auth');
+const verifyAuthUser=require('../middlewares/verifyAuthUser');
+router.get('/', 
+    auth,
+    verifyAuthUser,
+    clientController.getClients );
 
-router.get('/', clientController.getClients );
-
-router.get('/:id', clientController.getClientById);
+router.get('/:id', 
+    auth,
+    verifyAuthUser,
+    clientController.getClientById);
 
 router.post('/',
+    auth,
+    verifyAuthUser,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('apellidos').trim().notEmpty().escape().withMessage('Appellidos no válidos'),
     body('num_telefonico').trim().notEmpty().escape().isLength({
@@ -22,6 +31,8 @@ router.post('/',
 );
 
 router.put('/:id',
+    auth,
+    verifyAuthUser,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('apellidos').trim().notEmpty().escape().withMessage('Appellidos no válidos'),
     body('num_telefonico').trim().notEmpty().escape().isLength({
@@ -36,6 +47,9 @@ router.put('/:id',
 );
 
 
-router.delete('/:id', clientController.deleteClientById);
+router.delete('/:id', 
+    auth,
+    verifyAuthUser,
+    clientController.deleteClientById);
 
 module.exports=router;
