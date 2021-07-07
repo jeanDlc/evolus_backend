@@ -3,12 +3,22 @@ const router=Router();
 const taskController=require('../controllers/taskController');
 const {body}=require('express-validator');
 const {handlerValidationErrors}=require('../middlewares/handlerValidationErrors');
+const auth=require('../middlewares/auth');
+const verifyAuthUser=require('../middlewares/verifyAuthUser');
 ///get one task
-router.get('/:id', taskController.getTaskById )
+router.get('/:id', 
+    auth,
+    verifyAuthUser,
+    taskController.getTaskById )
 
-router.delete('/:id', taskController.deleteTask);
+router.delete('/:id', 
+    auth,
+    verifyAuthUser,
+    taskController.deleteTask);
 
 router.put('/:id', 
+    auth,
+    verifyAuthUser,
     body('ProyectoId').trim().notEmpty().escape().withMessage('El id del proyecto es requerido'),
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('descripcion').trim().notEmpty().escape().isString().withMessage('Descripción no válida'),
