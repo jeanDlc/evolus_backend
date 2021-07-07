@@ -3,12 +3,21 @@ const router=express.Router();
 const projectController=require('../controllers/projectController');
 const {body} = require('express-validator');
 const {handlerValidationErrors} = require('../middlewares/handlerValidationErrors');
+const auth=require('../middlewares/auth');
+const verifyAuthUser=require('../middlewares/verifyAuthUser');
+router.get('/', 
+    auth,
+    verifyAuthUser,
+    projectController.getProjects);
 
-router.get('/', projectController.getProjects);
-
-router.get('/:id', projectController.getProjectById);
+router.get('/:id', 
+    auth,
+    verifyAuthUser,
+    projectController.getProjectById);
 
 router.post('/', 
+    auth,
+    verifyAuthUser,
     body('ClienteId').trim().notEmpty().escape().withMessage('Cliente no válido') ,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido') ,
     body('descripcion').trim().notEmpty().escape().withMessage('Descripción no válida') ,
@@ -26,6 +35,8 @@ router.post('/',
     projectController.newProject);
 
 router.put('/:id', 
+    auth,
+    verifyAuthUser,
     body('ClienteId').trim().notEmpty().escape().withMessage('Cliente no válido') ,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido') ,
     body('descripcion').trim().notEmpty().escape().withMessage('Descripción no válida') ,
@@ -42,11 +53,19 @@ router.put('/:id',
     handlerValidationErrors,
     projectController.updateProject);
 
-router.delete('/:id', projectController.deleteProject);
+router.delete('/:id', 
+    auth,
+    verifyAuthUser,
+    projectController.deleteProject);
 
-router.get('/:id/tareas', projectController.getProjectTasks);
+router.get('/:id/tareas', 
+    auth,
+    verifyAuthUser,
+    projectController.getProjectTasks);
 
 router.post('/:id/tareas', 
+    auth,
+    verifyAuthUser,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('descripcion').trim().notEmpty().escape().withMessage('Descripción no válida'),
     handlerValidationErrors,
