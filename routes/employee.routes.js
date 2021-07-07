@@ -2,14 +2,23 @@ const express=require('express');
 const { body } = require('express-validator');
 const employeeController=require('../controllers/employeeController');
 const {handlerValidationErrors}=require('../middlewares/handlerValidationErrors');
+const auth=require('../middlewares/auth');
+const verifyAuthUser=require('../middlewares/verifyAuthUser');
 const router=express.Router();
 
-router.get('/', employeeController.getEmployees);
+router.get('/', 
+    auth,
+    verifyAuthUser,
+    employeeController.getEmployees);
 
-router.get('/:id', employeeController.getEmployeeById);
+router.get('/:id', 
+    auth,
+    verifyAuthUser,
+    employeeController.getEmployeeById);
 
 router.post('/', 
-
+    auth,
+    verifyAuthUser,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('apellidos').trim().notEmpty().escape().withMessage('Appellidos no válidos'),
     body('num_telefonico').trim().notEmpty().escape().isLength({
@@ -33,6 +42,8 @@ router.post('/',
 );
 
 router.put('/:id', 
+    auth,
+    verifyAuthUser,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('apellidos').trim().notEmpty().escape().withMessage('Appellidos no válidos'),
     body('num_telefonico').trim().notEmpty().escape().isLength({
@@ -54,5 +65,8 @@ router.put('/:id',
     employeeController.updateEmployee
 )
 
-router.delete('/:id', employeeController.deleteEmployee)
+router.delete('/:id', 
+    auth,
+    verifyAuthUser,
+    employeeController.deleteEmployee)
 module.exports=router;
