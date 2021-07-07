@@ -2,6 +2,7 @@ const { DataTypes} = require('sequelize');
 const db=require('../config/db');
 const Rol= require('./Rol');
 const Proyecto = require('./Proyecto');
+const bcrypt=require('bcrypt');
 const Empleado=db.define('Empleado',{
     id:{
         type:DataTypes.UUID,
@@ -55,7 +56,17 @@ const Empleado=db.define('Empleado',{
     expiraToken:{
         type:DataTypes.DATE
     }
-})
+},{hooks:{
+    beforeCreate(empleado){
+        empleado.pass=bcrypt.hashSync(empleado.pass, bcrypt.genSaltSync(10));
+    }
+}})
+
+//custom methods
+Empleado.prototype.verifyPassword=function(pass){
+    return bcrypt.compareSync(pass,this.pass);
+}
+
 Empleado.belongsTo(Rol);
 
 module.exports=Empleado;
