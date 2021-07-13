@@ -5,6 +5,7 @@ const {body} = require('express-validator');
 const {handlerValidationErrors} = require('../middlewares/handlerValidationErrors');
 const auth=require('../middlewares/auth');
 const verifyAuthUser=require('../middlewares/verifyAuthUser');
+const {adminPermission,validatePermissions, JefeTallerPermission,asesorPermission }=require('../middlewares/permissions');
 router.get('/', 
     auth,
     verifyAuthUser,
@@ -18,6 +19,9 @@ router.get('/:id',
 router.post('/', 
     auth,
     verifyAuthUser,
+    adminPermission,
+    asesorPermission,
+    validatePermissions,
     body('ClienteId').trim().notEmpty().escape().withMessage('Cliente no válido') ,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido') ,
     body('descripcion').trim().notEmpty().escape().withMessage('Descripción no válida') ,
@@ -37,6 +41,9 @@ router.post('/',
 router.put('/:id', 
     auth,
     verifyAuthUser,
+    adminPermission,
+    JefeTallerPermission,
+    validatePermissions,
     body('ClienteId').trim().notEmpty().escape().withMessage('Cliente no válido') ,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido') ,
     body('descripcion').trim().notEmpty().escape().withMessage('Descripción no válida') ,
@@ -56,6 +63,9 @@ router.put('/:id',
 router.delete('/:id', 
     auth,
     verifyAuthUser,
+    adminPermission,
+    JefeTallerPermission,
+    validatePermissions,
     projectController.deleteProject);
 
 router.get('/:id/tareas', 

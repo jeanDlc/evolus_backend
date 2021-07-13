@@ -6,12 +6,32 @@ const db=require('../config/db');
 const Rol = require('../models/Rol');
 const Cliente = require('../models/Cliente');
 exports.getProjects=async(req,res)=>{
-    const projects=await Proyecto.findAll();
-    res.status(200).json(projects);
+    let projects=[];
+    try {
+        if(req.user.RolId===4){
+            //los técnicos automotrices solo pueden ver los proyectos que les incumbe
+            projects=await filterProjectsByEmployee(req.user.id);
+        }
+        else{
+            projects=await Proyecto.findAll();
+        }
+        res.status(200).json(projects);
+    } catch (error) {
+        res.status(500).json({error:'Hubo un error'});
+    }
+}
+const filterProjectsByEmployee=async empId=>{
+    const projects=await Proyecto.findAll({include:[
+        {model:Empleado,
+            attributes:[],
+            where:{id:empId}
+        }
+    ]});
+    return projects;
 }
 exports.getProjectById=async(req,res)=>{
     try {
-        //get the project and their employees and tasks
+        //obtiene el proyecto (también los empleados y tareas relacionadas)
         const {id}=req.params;
         const project=await Proyecto.findByPk(id, {include:[
             {model:Empleado,
