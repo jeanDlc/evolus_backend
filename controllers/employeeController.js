@@ -41,7 +41,7 @@ exports.newEmployee=async(req,res)=>{
     }
 }
 exports.updateEmployee=async(req,res)=>{
-    //TODO: verificar permisos
+    const employeeId=req.params.id; /*empleado que se quiere editar */
     try {
         const {nombre,apellidos,num_telefonico,dni,ruc,direccion,pass,RolId}=req.body;
         const [numUpdatedEmployees]=await Empleado.update({
@@ -53,7 +53,7 @@ exports.updateEmployee=async(req,res)=>{
             direccion,
             pass,
             RolId,
-        } , {where:{id:req.params.id}});
+        } , {where:{id:employeeId}});
         if(numUpdatedEmployees===0){
             return res.status(400).json({error:'No se pudo actualizar'})
         } 

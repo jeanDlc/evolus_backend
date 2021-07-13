@@ -4,21 +4,35 @@ const employeeController=require('../controllers/employeeController');
 const {handlerValidationErrors}=require('../middlewares/handlerValidationErrors');
 const auth=require('../middlewares/auth');
 const verifyAuthUser=require('../middlewares/verifyAuthUser');
+const {adminPermission,validatePermissions, JefeTallerPermission,asesorPermission }=require('../middlewares/permissions');
 const router=express.Router();
 
 router.get('/', 
     auth,
     verifyAuthUser,
+    adminPermission,
+    asesorPermission,
+    JefeTallerPermission,
+    validatePermissions,
     employeeController.getEmployees);
 
 router.get('/:id', 
     auth,
     verifyAuthUser,
+    (req,res,next)=>{
+        //si es técnico automotriz, solo podrá ver su propio perfil
+        if(req.user.RolId==4 && req.params.id!==req.user.id){
+            return res.status(401).json({error:'No tienes acceso'});
+        }
+        next(); 
+    },
     employeeController.getEmployeeById);
 
 router.post('/', 
     auth,
     verifyAuthUser,
+    adminPermission,
+    validatePermissions,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('apellidos').trim().notEmpty().escape().withMessage('Appellidos no válidos'),
     body('num_telefonico').trim().notEmpty().escape().isLength({
@@ -44,6 +58,13 @@ router.post('/',
 router.put('/:id', 
     auth,
     verifyAuthUser,
+    (req,res,next)=>{
+        //solo el mismo user o el admin pueden editar el perfil del empleado
+        if(req.user.id==req.params.id || req.user.RolId==1){
+            return next();
+        }
+        return res.status(401).json({error:'No puedes editar este perfil'});
+    },
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('apellidos').trim().notEmpty().escape().withMessage('Appellidos no válidos'),
     body('num_telefonico').trim().notEmpty().escape().isLength({
@@ -68,5 +89,7 @@ router.put('/:id',
 router.delete('/:id', 
     auth,
     verifyAuthUser,
+    adminPermission,
+    validatePermissions,
     employeeController.deleteEmployee)
 module.exports=router;
