@@ -10,7 +10,6 @@ exports.handlerValidationErrors=(req,res,next)=>{
     }
 }
 exports.getClients=async(req,res)=>{
-    //TODO admin y asesor de serv tienen acceso
     const clientes= await Cliente.findAll();
     res.status(200).json(clientes);
     

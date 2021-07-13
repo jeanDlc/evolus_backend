@@ -4,19 +4,31 @@ const clientController=require('../controllers/clientController');
 const { body } = require('express-validator');
 const auth=require('../middlewares/auth');
 const verifyAuthUser=require('../middlewares/verifyAuthUser');
+const permission=require('../middlewares/permissions');
 router.get('/', 
     auth,
     verifyAuthUser,
+    permission.adminPermission,
+    permission.asesorPermission,
+    permission.JefeTallerPermission,
+    permission.validatePermissions,
     clientController.getClients );
 
 router.get('/:id', 
     auth,
     verifyAuthUser,
+    permission.adminPermission,
+    permission.asesorPermission,
+    permission.JefeTallerPermission,
+    permission.validatePermissions,
     clientController.getClientById);
 
 router.post('/',
     auth,
     verifyAuthUser,
+    permission.adminPermission,
+    permission.asesorPermission,
+    permission.validatePermissions,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('apellidos').trim().notEmpty().escape().withMessage('Appellidos no válidos'),
     body('num_telefonico').trim().notEmpty().escape().isLength({
@@ -33,6 +45,9 @@ router.post('/',
 router.put('/:id',
     auth,
     verifyAuthUser,
+    permission.adminPermission,
+    permission.asesorPermission,
+    permission.validatePermissions,
     body('nombre').trim().notEmpty().escape().withMessage('Nombre no válido'),
     body('apellidos').trim().notEmpty().escape().withMessage('Appellidos no válidos'),
     body('num_telefonico').trim().notEmpty().escape().isLength({
@@ -50,6 +65,9 @@ router.put('/:id',
 router.delete('/:id', 
     auth,
     verifyAuthUser,
+    permission.adminPermission,
+    permission.asesorPermission,
+    permission.validatePermissions,
     clientController.deleteClientById);
 
 module.exports=router;
