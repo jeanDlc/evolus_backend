@@ -1,19 +1,23 @@
 {
     "roles":[{
+      "id":1,
         "nombre": "Administrador de sistema",
         "descripcion":
           "Es el responsable de la administración, organización, control y dirección de los recursos de los que dispone el taller, su gestión básicamente es guiar al equipo hacia la obtención de los objetivos de la empresa gestionando los recursos que se requieran para. Definir los indicadores de gestión, establecer los objetivos, revisar el desempeño del personal técnico y asesores. La toma de decisiones cuando haya que hacer cambio o ajustes, es su responsabilidad."
       },
       {
+        "id":2,
         "nombre": "Asesor de servicio",
         "descripcion":"El asesor de servicio es el trabajo más difícil de desempeñar dentro de la estructura de los talleres, el recibe al cliente según su agenda, resección la unidad, genera la orden de servicio con los requerimientos del cliente, elabora el presupuesto, informa al cliente de la evolución de los trabajos, hace el compromiso de entrega y finalmente es quien entrega la unidad al cliente cuando ya ha sido reparada y lavada."
       },
       {
+        "id":3,
         "nombre": "Jefe de taller",
         "descripcion":
           "Es la persona que realiza la revisión, diagnóstico de la unidad del cliente, su importancia está sustentada en que la operación será exitosa, o no, de acuerdo a su preparación, conocimiento, habilidades de liderazgo y comunicación, todo lo que se hace en el taller pasa por sus manos, asigna los trabajos, hace seguimiento al trabajo en proceso, asesora técnicamente al personal a su cargo y es el primero en determinar las necesidades de entrenamiento del personal técnico, hace el seguimiento a los trabajos en otros talleres, etc"
       },
       {
+        "id":4,
         "nombre": "Técnico automotriz",
         "descripcion":
           "Es aquella persona que tiene pleno conocimiento, comprensión y dominio de la técnica manual y de los procesos envueltos para diagnóstico, reparación y ajuste del motor y otras partes esenciales para el funcionamiento de un vehículo de motor, el técnico es quien realiza la reparación de las unidades recibidas en el taller según fueron especificados del jefe de taller."
