@@ -11,7 +11,10 @@ exports.initializeSomeTables = async () => {
     //crear el primer admin si es que no existe
     const numEmp = await Empleado.count();
     if (numEmp == 0) {
-      await Empleado.create(firsTadmin);
+      const rols = await Rol.findAll();
+      console.log("roles", rols);
+      const firstAdmin = await Empleado.create(firsTadmin);
+      console.log("first admin", firstAdmin);
     }
   } catch (error) {
     console.log("error en initializeSomeTables", error.message || error);
