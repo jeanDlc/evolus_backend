@@ -14,6 +14,6 @@ exports.initializeSomeTables = async () => {
       await Empleado.create(firsTadmin);
     }
   } catch (error) {
-    console.log(error);
+    console.log("error en initializeSomeTables", error.message || error);
   }
 };
