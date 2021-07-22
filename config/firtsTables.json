@@ -2,21 +2,21 @@
     "roles":[{
         "nombre": "Administrador de sistema",
         "descripcion":
-          "Suspendisse non dolor vitae velit maximus laoreet vitae in neque. Quisque gravida, nunc vel facilisis maximus, nulla massa pharetra lacus, vitae scelerisque massa tellus non dolor. Aenean ex est, mollis ut varius in, faucibus ac tellus. Integer quam sapien, mattis at condimentum quis, consequat luctus ex"
+          "Es el responsable de la administración, organización, control y dirección de los recursos de los que dispone el taller, su gestión básicamente es guiar al equipo hacia la obtención de los objetivos de la empresa gestionando los recursos que se requieran para. Definir los indicadores de gestión, establecer los objetivos, revisar el desempeño del personal técnico y asesores. La toma de decisiones cuando haya que hacer cambio o ajustes, es su responsabilidad."
       },
       {
         "nombre": "Asesor de servicio",
-        "descripcion":"Aliquam ornare mauris nec bibendum aliquet. Proin ornare feugiat risus eget viverra. Vivamus finibus, odio sed ullamcorper faucibus, dui quam vulputate dolor, sed euismod elit mi eget dolor. Integer a diam interdum, facilisis dui non, tristique neque. Nullam egestas volutpat leo quis ullamcorper."
+        "descripcion":"El asesor de servicio es el trabajo más difícil de desempeñar dentro de la estructura de los talleres, el recibe al cliente según su agenda, resección la unidad, genera la orden de servicio con los requerimientos del cliente, elabora el presupuesto, informa al cliente de la evolución de los trabajos, hace el compromiso de entrega y finalmente es quien entrega la unidad al cliente cuando ya ha sido reparada y lavada."
       },
       {
         "nombre": "Jefe de taller",
         "descripcion":
-          "Morbi eget lacus sagittis, vestibulum ante eget, vulputate odio. Morbi tristique sagittis sem eget scelerisque. Vivamus turpis velit, condimentum eu porta non, commodo in magna. Aenean nibh ex, cursus quis imperdiet eu, molestie et augue. Duis nec lorem pharetra nulla consectetur bibendum. Pellentesque quis porta enim."
+          "Es la persona que realiza la revisión, diagnóstico de la unidad del cliente, su importancia está sustentada en que la operación será exitosa, o no, de acuerdo a su preparación, conocimiento, habilidades de liderazgo y comunicación, todo lo que se hace en el taller pasa por sus manos, asigna los trabajos, hace seguimiento al trabajo en proceso, asesora técnicamente al personal a su cargo y es el primero en determinar las necesidades de entrenamiento del personal técnico, hace el seguimiento a los trabajos en otros talleres, etc"
       },
       {
         "nombre": "Técnico automotriz",
         "descripcion":
-          "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam a risus orci. Mauris dapibus sollicitudin dolor, id venenatis lacus ultricies sed. Donec egestas mattis scelerisque. Vestibulum a vulputate diam. Vestibulum venenatis ornare diam, quis imperdiet purus pharetra a. Nulla interdum convallis gravida. Curabitur at dui turpis."
+          "Es aquella persona que tiene pleno conocimiento, comprensión y dominio de la técnica manual y de los procesos envueltos para diagnóstico, reparación y ajuste del motor y otras partes esenciales para el funcionamiento de un vehículo de motor, el técnico es quien realiza la reparación de las unidades recibidas en el taller según fueron especificados del jefe de taller."
       }],
       "firsTadmin":{
         "nombre":"Pepe",

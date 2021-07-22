@@ -8,7 +8,11 @@ exports.initializeSomeTables = async () => {
     if (num == 0) {
       await Rol.bulkCreate(roles);
     }
-    await Empleado.create(firsTadmin);
+    //crear el primer admin si es que no existe
+    const numEmp = await Empleado.count();
+    if (numEmp == 0) {
+      await Empleado.create(firsTadmin);
+    }
   } catch (error) {
     console.log(error);
   }
