@@ -11,8 +11,6 @@ exports.initializeSomeTables = async () => {
     //crear el primer admin si es que no existe
     const numEmp = await Empleado.count();
     if (numEmp == 0) {
-      const rols = await Rol.findAll();
-      console.log("roles", rols);
       const firstAdmin = await Empleado.create(firsTadmin);
       console.log("first admin", firstAdmin);
     }
