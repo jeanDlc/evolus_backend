@@ -17,7 +17,7 @@ require("./models/Empleado");
 require("./models/Proyecto");
 require("./models/Tarea");
 require("./models/Proyecto_Empleado");
-db.sync({ force: true })
+db.sync()
   .then(() => {
     initializeSomeTables();
     console.log("database connected");
